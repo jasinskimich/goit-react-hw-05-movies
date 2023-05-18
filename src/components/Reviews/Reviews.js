@@ -12,6 +12,12 @@ const Reviews = () => {
     });
   }, [movieId]);
 
+  const removeHtmlTags = htmlString => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, 'text/html');
+    return doc.body.textContent;
+  }
+
   if (!reviews) {
     return <div>Loading...</div>;
   } else if (reviews.length === 0) {
@@ -24,7 +30,7 @@ const Reviews = () => {
         {reviews.map(review => (
           <li key={review.id}>
             <h2>{review.author}</h2>
-            <p>{review.content}</p>
+            <p>{removeHtmlTags(review.content)}</p>
           </li>
         ))}
       </ul>
