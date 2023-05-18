@@ -12,11 +12,7 @@ const Reviews = () => {
     });
   }, [movieId]);
 
-  const removeHtmlTags = htmlString => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlString, 'text/html');
-    return doc.body.textContent;
-  }
+  
 
   if (!reviews) {
     return <div>Loading...</div>;
@@ -30,7 +26,7 @@ const Reviews = () => {
         {reviews.map(review => (
           <li key={review.id}>
             <h2>{review.author}</h2>
-            <p>{removeHtmlTags(review.content)}</p>
+            <p dangerouslySetInnerHTML={{ __html: review.content }}></p>
           </li>
         ))}
       </ul>
